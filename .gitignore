@@ -1,0 +1,26 @@
+# Build and binaries
+build/
+*.o
+*.so
+*.a
+*.dylib
+*.exe
+
+# IDE and system files
+.vscode/
+.idea/
+.DS_Store
+*.swp
+
+# Logs and data
+data/logs/
+*.bag
+
+# CMake cache
+CMakeCache.txt
+CMakeFiles/
+
+# Python notebooks or ML models (optional)
+*.ipynb
+*.pt
+*.onnx
