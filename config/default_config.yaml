@@ -1,0 +1,34 @@
+sensors:
+  imu: true
+  wheel_odom: true
+  lidar_odom: false
+  gps: false
+  visual_odom: false
+
+ekf:
+  initial_covariance:
+    - [0.1, 0, 0, 0, 0, 0]
+    - [0, 0.1, 0, 0, 0, 0]
+    - [0, 0, 0.1, 0, 0, 0]
+    - [0, 0, 0, 0.05, 0, 0]
+    - [0, 0, 0, 0, 0.05, 0]
+    - [0, 0, 0, 0, 0, 0.05]
+  process_noise:
+    - [0.01, 0, 0, 0, 0, 0]
+    - [0, 0.01, 0, 0, 0, 0]
+    - [0, 0, 0.01, 0, 0, 0]
+    - [0, 0, 0, 0.005, 0, 0]
+    - [0, 0, 0, 0, 0.005, 0]
+    - [0, 0, 0, 0, 0, 0.005]
+  update_rate: 50.0
+
+ml_model:
+  path: /models/axis_localization.onnx
+  params: {}
+
+maplite:
+  submap_size: 10
+  icp_threshold: 0.7
+
+diagnostics:
+  publish_rate: 1.0
