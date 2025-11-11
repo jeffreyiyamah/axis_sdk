@@ -1,0 +1,116 @@
+{
+  "model_type": "GBDT",
+  "learning_rate": 0.1,
+  "init_prediction": 1.0,
+  "trees": [
+    {
+      "feature_index": 0,
+      "threshold": 0.01,
+      "is_leaf": false,
+      "left_child": {
+        "feature_index": 1,
+        "threshold": 1000.0,
+        "is_leaf": false,
+        "left_child": {
+          "is_leaf": true,
+          "value": 1.2
+        },
+        "right_child": {
+          "is_leaf": true,
+          "value": 0.8
+        }
+      },
+      "right_child": {
+        "feature_index": 5,
+        "threshold": 0.1,
+        "is_leaf": false,
+        "left_child": {
+          "is_leaf": true,
+          "value": 0.6
+        },
+        "right_child": {
+          "is_leaf": true,
+          "value": 1.4
+        }
+      }
+    },
+    {
+      "feature_index": 2,
+      "threshold": 50.0,
+      "is_leaf": false,
+      "left_child": {
+        "feature_index": 3,
+        "threshold": 20.0,
+        "is_leaf": false,
+        "left_child": {
+          "is_leaf": true,
+          "value": -0.1
+        },
+        "right_child": {
+          "is_leaf": true,
+          "value": 0.2
+        }
+      },
+      "right_child": {
+        "feature_index": 6,
+        "threshold": 0.05,
+        "is_leaf": false,
+        "left_child": {
+          "is_leaf": true,
+          "value": 0.3
+        },
+        "right_child": {
+          "is_leaf": true,
+          "value": -0.2
+        }
+      }
+    },
+    {
+      "feature_index": 7,
+      "threshold": 0.02,
+      "is_leaf": false,
+      "left_child": {
+        "feature_index": 8,
+        "threshold": 0.1,
+        "is_leaf": false,
+        "left_child": {
+          "is_leaf": true,
+          "value": 0.15
+        },
+        "right_child": {
+          "is_leaf": true,
+          "value": -0.05
+        }
+      },
+      "right_child": {
+        "feature_index": 9,
+        "threshold": 0.15,
+        "is_leaf": false,
+        "left_child": {
+          "is_leaf": true,
+          "value": -0.1
+        },
+        "right_child": {
+          "is_leaf": true,
+          "value": 0.25
+        }
+      }
+    }
+  ],
+  "feature_mapping": {
+    "0": "imu_noise_variance",
+    "1": "lidar_return_density",
+    "2": "vo_feature_count",
+    "3": "gps_snr",
+    "4": "gps_satellite_count",
+    "5": "ekf_innovation_imu",
+    "6": "ekf_innovation_wheel",
+    "7": "ekf_innovation_lidar",
+    "8": "ekf_innovation_vo",
+    "9": "ekf_innovation_gps"
+  },
+  "output_scaling": {
+    "scale": 1.0,
+    "bias": 0.0
+  }
+}
