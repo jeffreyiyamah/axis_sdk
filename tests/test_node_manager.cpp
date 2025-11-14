@@ -9,7 +9,6 @@ TEST(ModeManagerTest, BasicTransitions) {
     double t = 0.0;                     // simulation time
     const double HYSTERESIS = 1.1;      // > RECOVERY_HYSTERESIS_SEC
 
-    // Helper: advance time and evaluate the state machine
     auto tick = [&](double dt) {
         t += dt;
         manager.evaluateTransition(t);

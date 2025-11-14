@@ -1,0 +1,30 @@
+sensors:
+  imu: true
+  wheel_odom: true
+  lidar_odom: true
+  gps: true
+  visual_odom: false
+
+ekf:
+  update_rate: 100.0
+
+ml_weighting:
+  model_path: config/ml_model.json
+  min_weight: 0.1
+  max_weight: 2.0
+  update_interval: 2.0
+
+maplite:
+  submap_radius: 60.0
+  max_scans_in_submap: 150
+  icp_max_correspondence_distance: 0.5
+  icp_max_iterations: 50
+  match_score_threshold: 0.5
+  min_time_between_attempts: 1.0
+  loop_closure_distance_threshold: 10.0
+  voxel_leaf_size: 0.1
+  enable_voxel_filter: true
+  enable_loop_closure: true
+
+diagnostics:
+  publish_rate: 5.0

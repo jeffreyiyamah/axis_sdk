@@ -10,10 +10,10 @@ namespace {
 constexpr double MIN_COV = 1e-6; // Covariance lower bound
 }
 
-EKFState::EKFState() : state_(Eigen::Matrix<double,15,1>::Zero()), P_(Eigen::Matrix<double,15,15>::Identity()*1e-2) {}
+EKFState::EKFState() : state_(Eigen::Matrix<double,16,1>::Zero()), P_(Eigen::Matrix<double,16,16>::Identity()*1e-2) {}
 
 EKFState::EKFState(const Eigen::VectorXd& initial_state)
-    : state_(initial_state.head<15>()), P_(Eigen::Matrix<double,15,15>::Identity()*1e-2) {}
+    : state_(initial_state.head<16>()), P_(Eigen::Matrix<double,16,16>::Identity()*1e-2) {}
 
 void EKFState::predict(const Eigen::Vector3d& accel_in, const Eigen::Vector3d& gyro_in, double dt) {
     // Unpack
@@ -48,7 +48,7 @@ void EKFState::predict(const Eigen::Vector3d& accel_in, const Eigen::Vector3d& g
 
     // Covariance propagation (simple - no input noise)
     // TODO: Insert reasonable F, Q computation
-    P_ = P_ + Eigen::Matrix<double,15,15>::Identity() * MIN_COV * dt; // crude inflate
+    P_ = P_ + Eigen::Matrix<double,16,16>::Identity() * MIN_COV * dt; // crude inflate
     conditionCovariance();
 }
 
@@ -58,7 +58,7 @@ void EKFState::update(const Eigen::VectorXd& y, const Eigen::MatrixXd& H, const 
     Eigen::MatrixXd S = H * P_ * H.transpose() + R;
     Eigen::MatrixXd K = P_ * H.transpose() * S.inverse();
     state_ += K * innov;
-    P_ = (Eigen::Matrix<double,15,15>::Identity() - K * H) * P_;
+    P_ = (Eigen::Matrix<double,16,16>::Identity() - K * H) * P_;
     // Normalize quaternion
     Eigen::Vector4d qv = state_.segment<4>(6);
     state_.segment<4>(6) = axis::normalizeQuaternion(qv);
@@ -76,12 +76,12 @@ EKFState::StateSnapshot EKFState::getState() const {
     return {pos, vel, quat, accel_bias, gyro_bias};
 }
 
-Eigen::Matrix<double,15,15> EKFState::getCovariance() const {
+Eigen::Matrix<double,16,16> EKFState::getCovariance() const {
     return P_;
 }
 
 void EKFState::reset(const Eigen::VectorXd& initial_state) {
-    state_ = initial_state.head<15>();
+    state_ = initial_state.head<16>();
     P_.setIdentity();
     P_ *= 1e-2;
     health_ = SensorHealth::ONLINE;

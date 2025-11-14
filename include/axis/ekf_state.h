@@ -40,15 +40,15 @@ public:
         Eigen::Vector3d gyro_bias;
     };
     StateSnapshot getState() const;
-    Eigen::Matrix<double,15,15> getCovariance() const;
+    Eigen::Matrix<double,16,16> getCovariance() const;
     void reset(const Eigen::VectorXd& initial_state);
 
     // Health check helper (e.g. time gating or numerical problems)
     SensorHealth checkHealth() const;
 
 private:
-    Eigen::Matrix<double,15,1> state_;  // See doc for layout
-    Eigen::Matrix<double,15,15> P_;     // Covariance
+    Eigen::Matrix<double,16,1> state_;  // See doc for layout
+    Eigen::Matrix<double,16,16> P_;     // Covariance
     SensorHealth health_{SensorHealth::ONLINE};
 
     void conditionCovariance(); // enforce positive-definite, lower bounds

@@ -34,12 +34,7 @@ target_link_libraries(axis_node PRIVATE axis_core Eigen3::Eigen yaml-cpp)
 
 # Tests
 enable_testing()
-find_package(GTest REQUIRED)
-file(GLOB TEST_SOURCES tests/*.cpp)
-add_executable(axis_tests ${TEST_SOURCES})
-target_link_libraries(axis_tests PRIVATE axis_core GTest::GTest GTest::Main Eigen3::Eigen)
-target_include_directories(axis_tests PRIVATE ${EIGEN3_INCLUDE_DIR})
-add_test(NAME axis_tests COMMAND axis_tests)
+add_subdirectory(tests)
 
 
 # Install targets
