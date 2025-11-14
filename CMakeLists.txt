@@ -30,7 +30,7 @@ endif()
 
 # axis_node executable (placeholder main)
 add_executable(axis_node src/main.cpp)
-target_link_libraries(axis_node PRIVATE axis_core)
+target_link_libraries(axis_node PRIVATE axis_core Eigen3::Eigen yaml-cpp)
 
 # Tests
 enable_testing()

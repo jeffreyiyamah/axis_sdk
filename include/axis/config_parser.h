@@ -3,6 +3,7 @@
 #include <memory>
 #include <unordered_map>
 #include <Eigen/Core>
+#include <yaml-cpp/yaml.h>
 
 namespace axis {
 
@@ -37,8 +38,22 @@ public:
     // Diagnostics
     double getDiagPubRate() const;
 
+    // --------------------------------------------------------------------
+    // Generic YAML accessors (AxisLocalizer uses these)
+    // --------------------------------------------------------------------
+    template<typename T>
+    T get(const std::string& key, const T& default_value) const;
+
+    bool getBool(const std::string& key, bool default_value) const;
+    double getDouble(const std::string& key, double default_value) const;
+    int getInt(const std::string& key, int default_value) const;
+    std::string getString(const std::string& key,
+                          const std::string& default_value) const;
+
 private:
+    // Forward declaration ONLY — real definition lives in .cpp
     class Impl;
+
     std::unique_ptr<Impl> impl_;
 };
 

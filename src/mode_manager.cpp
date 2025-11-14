@@ -2,6 +2,7 @@
 #include <algorithm>
 #include <sstream>
 #include <iomanip>
+#include <iostream>
 
 namespace axis {
 
@@ -29,6 +30,18 @@ void ModeManager::updateSensorStatus(const std::string& sensor_name, bool is_hea
     if (!previous_status && is_healthy) {
         sensor_recovery_time_.erase(sensor_name);  // Remove entry - will be added on next tick
     }
+}
+
+void ModeManager::requestTransition(OperatingMode new_mode) {
+    if (current_mode_ == new_mode) {
+        return;
+    }
+
+    std::cout << "[ModeManager] Transition: "
+              << modeToString(current_mode_) << " -> " << modeToString(new_mode)
+              << std::endl;
+
+    current_mode_ = new_mode;
 }
 
 bool ModeManager::evaluateTransition(double current_time) {

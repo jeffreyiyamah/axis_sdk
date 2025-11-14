@@ -67,6 +67,8 @@ public:
      */
     OperatingMode getCurrentMode() const;
 
+    void requestTransition(OperatingMode new_mode);
+
     /**
      * @brief Get time spent in current mode
      * @return Duration in seconds

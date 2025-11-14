@@ -7,6 +7,9 @@
 
 namespace axis {
 
+using Matrix6d = Eigen::Matrix<double, 6, 6>;
+using Vector6d = Eigen::Matrix<double, 6, 1>;
+
 enum class SensorHealth {
     ONLINE,
     DEGRADED,
