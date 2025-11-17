@@ -12,7 +12,7 @@
  *   - velocity:      [3:6]   (m/s, local frame)
  *   - orientation:   [6:10]  (quaternion x, y, z, w) (body frame wrt local)
  *   - accel_bias:    [10:13] (m/s^2)
- *   - gyro_bias:     [13:16] (rad/s)
+ *   - gyro_bias:     [13:15] (rad/s)
  *
  * Coordinate frames:
  *    - Body frame: Robot (right, forward, up)

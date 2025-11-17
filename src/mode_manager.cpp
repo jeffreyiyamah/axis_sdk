@@ -112,6 +112,8 @@ bool ModeManager::shouldTransitionFromNominal(double current_time) const {
 bool ModeManager::shouldTransitionFromDeadReckoning(double current_time) const {
     // Check timeout
     double time_in_mode = current_time - mode_entry_time_;
+
+
     if (time_in_mode > DEAD_RECKONING_TIMEOUT_SEC) {
         const_cast<ModeManager*>(this)->transitionToMode(
             OperatingMode::FAIL_SAFE, 

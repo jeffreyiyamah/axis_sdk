@@ -13,7 +13,7 @@ constexpr double MIN_COV = 1e-6; // Covariance lower bound
 EKFState::EKFState() : state_(Eigen::Matrix<double,16,1>::Zero()), P_(Eigen::Matrix<double,16,16>::Identity()*1e-2) {}
 
 EKFState::EKFState(const Eigen::VectorXd& initial_state)
-    : state_(initial_state.head<16>()), P_(Eigen::Matrix<double,16,16>::Identity()*1e-2) {}
+    : state_(initial_state.head<16>()), P_(Eigen::Matrix<double,16,16>::Identity()*10.0) {}
 
 void EKFState::predict(const Eigen::Vector3d& accel_in, const Eigen::Vector3d& gyro_in, double dt) {
     // Unpack

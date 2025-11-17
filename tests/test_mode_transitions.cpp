@@ -51,6 +51,10 @@ TEST(ModeTransitionsTest, SensorFailureScenarios)
 TEST(ModeTransitionsTest, TimeoutBasedTransitions)
 {
     ModeManager manager(OperatingMode::DEAD_RECKONING);
+    
+    // Ensure GPS is not available (otherwise it will recover and transition to NOMINAL)
+    manager.updateSensorStatus("GPS", false);
+    
     double t = 0.0;
 
     auto tick = [&](double dt) {

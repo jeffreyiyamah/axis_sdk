@@ -224,7 +224,42 @@ Eigen::VectorXd MLWeightingEngine::predictGBDT(const Eigen::VectorXd& features) 
 }
 
 Eigen::VectorXd MLWeightingEngine::predictMLP(const Eigen::VectorXd& features) {
-    return mlp_model_.predict(features);
+    if (mlp_model_.layers.empty()) {
+        return Eigen::VectorXd::Constant(5, 1.0);
+    }
+    
+    Eigen::VectorXd activation = features;
+    
+    // Forward pass through all layers
+    for (const auto& layer : mlp_model_.layers) {
+        activation = layer.weights * activation + layer.bias;
+        
+        // Apply activation function
+        if (layer.activation == "relu") {
+            activation = activation.cwiseMax(0.0);
+        } else if (layer.activation == "sigmoid") {
+            activation = (1.0 / (1.0 + (-activation.array()).exp())).matrix();
+        } else if (layer.activation == "tanh") {
+            activation = activation.array().tanh().matrix();
+        }
+        // "linear" activation does nothing
+    }
+    
+    // Apply output scaling
+    activation = activation.array() * mlp_model_.output_scale + mlp_model_.output_bias;
+    
+    // The model outputs 1 value, but we need 5 weights (one per sensor)
+    Eigen::VectorXd weights(5);
+    if (activation.size() == 1) {
+        weights.setConstant(activation[0]);
+    } else if (activation.size() >= 5) {
+        weights = activation.head(5);
+    } else {
+        weights.setOnes();
+        weights.head(activation.size()) = activation;
+    }
+    
+    return weights;
 }
 
 Eigen::VectorXd MLWeightingEngine::normalizeAndClipWeights(const Eigen::VectorXd& raw_weights) {
